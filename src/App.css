@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.time,
+.metrics {
+  border: solid 1px;
+  border-radius: 5px;
+  height: 200px;
+  background-color: wheat;
+  font-size: 24px;
+}
+
+.metrics {
+  overflow: scroll;
+  height: 75vh;
+}
