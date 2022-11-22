@@ -15,3 +15,8 @@
   overflow: scroll;
   height: 75vh;
 }
+
+pre {
+  display: inline-block;
+  text-align: left;
+}
