@@ -13,8 +13,10 @@ const pad = (v) => {
 
 // Display time in stopwatch format.
 const stopwatch = (n) => {
+  let sign = n < 0 ? "-" : "";
+  n = Math.abs(n);
   let m = Math.floor(n / 60);
-  return `Difference: ${pad(Math.floor(m / 60))}:${pad(
+  return `Difference: ${sign}${pad(Math.floor(m / 60))}:${pad(
     Math.floor(m % 60)
   )}:${pad(n % 60)}`;
 };

@@ -4,6 +4,7 @@ export const Metrics = () => {
   const [metrics, setMetrics] = useState("");
   useEffect(() => {
     const getData = async () => {
+      setMetrics("");
       const resp = await fetch("https://timeserver.onrender.com/metrics", {
         method: "get",
         headers: {
@@ -11,7 +12,7 @@ export const Metrics = () => {
         },
       });
       if (!resp.ok) {
-        setMetrics("");
+        setMetrics("false");
       } else {
         resp.text().then((data) => {
           setMetrics(data);
@@ -19,10 +20,24 @@ export const Metrics = () => {
       }
     };
     getData();
-    const timer = setInterval(() => {
-      getData();
-    }, 30000);
-    return () => clearInterval(timer);
+    if (metrics !== "false") {
+      const timer = setInterval(() => {
+        getData();
+      }, 30000);
+      return () => clearInterval(timer);
+    }
   }, []);
-  return metrics ? <pre>{metrics}</pre> : <p>Loading ...</p>;
+
+  let jsx;
+  switch (metrics) {
+    case "false":
+      jsx = <p>No response from server.</p>;
+      break;
+    case "":
+      jsx = <p>Loading ...</p>;
+      break;
+    default:
+      jsx = <pre>{metrics}</pre>;
+  }
+  return <>{jsx}</>;
 };
