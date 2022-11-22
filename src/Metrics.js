@@ -1,7 +1,9 @@
+import { Prev } from "./Difference.js";
 import { useState, useEffect } from "react";
 
-export const Metrics = () => {
+export const Metrics = ({ token }) => {
   const [metrics, setMetrics] = useState("");
+  const lastToken = Prev(token);
   useEffect(() => {
     const getData = async () => {
       setMetrics("");
@@ -9,6 +11,7 @@ export const Metrics = () => {
         method: "get",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       });
       if (!resp.ok) {
@@ -19,19 +22,21 @@ export const Metrics = () => {
         });
       }
     };
-    getData();
+    if (lastToken !== token) {
+      getData();
+    }
     if (metrics !== "false") {
-      const timer = setInterval(() => {
+      const timer = setTimeout(() => {
         getData();
       }, 30000);
-      return () => clearInterval(timer);
+      return () => clearTimeout(timer);
     }
-  }, []);
+  });
 
   let jsx;
   switch (metrics) {
     case "false":
-      jsx = <p>No response from server.</p>;
+      jsx = <p>Please check authorisation token.</p>;
       break;
     case "":
       jsx = <p>Loading ...</p>;

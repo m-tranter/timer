@@ -53,9 +53,7 @@ export default function MyApp() {
           </div>
           <div className="col-lg-9 col-sm-12 text-center">
             <h2>Metrics</h2>
-            <div className="metrics">
-              <Metrics />
-            </div>
+            <div className="metrics">{token && <Metrics token={token} />}</div>
           </div>
         </div>
       </div>
