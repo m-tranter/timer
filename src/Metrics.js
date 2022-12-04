@@ -24,12 +24,12 @@ export const Metrics = ({ token }) => {
     };
     if (lastToken !== token) {
       getData();
-      if (metrics !== "false") {
-        const timer = setTimeout(() => {
-          getData();
-        }, 30000);
-        return () => clearTimeout(timer);
-      }
+    }
+    if (metrics !== "false") {
+      const timer = setTimeout(() => {
+        getData();
+      }, 30000);
+      return () => clearTimeout(timer);
     }
   });
 
