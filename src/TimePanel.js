@@ -25,12 +25,12 @@ export const TimePanel = ({ token }) => {
     };
     if (lastToken !== token) {
       getData();
-    }
-    if (data > 0) {
-      const timer = setTimeout(() => {
-        getData();
-      }, 30000);
-      return () => clearTimeout(timer);
+      if (data > 0) {
+        const timer = setTimeout(() => {
+          getData();
+        }, 30000);
+        return () => clearTimeout(timer);
+      }
     }
   });
   return <Display data={data} />;
